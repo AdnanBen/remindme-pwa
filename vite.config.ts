@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
+import { VitePWA } from "vite-plugin-pwa"
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,15 +10,11 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: [
-        "favicon.ico",
-        "favicon.svg",
-        "apple-touch-icon-180x180.png",
-      ],
+      includeAssets: ["favicon.ico", "favicon.svg", "apple-touch-icon-180x180.png"],
       manifest: {
-        name: "Reminders",
-        short_name: "Reminders",
-        description: "A reminders application",
+        name: "RemindMe!",
+        short_name: "RemindMe!",
+        description: "Simple one-time and recurring reminders",
         theme_color: "#0a0a0a",
         background_color: "#0a0a0a",
         display: "standalone",
@@ -59,4 +55,4 @@ export default defineConfig({
   server: {
     allowedHosts: true,
   },
-});
+})
