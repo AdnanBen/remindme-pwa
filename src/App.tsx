@@ -9,12 +9,14 @@ import { Tabs } from "./components/Tabs"
 import { ReminderList } from "./components/ReminderList"
 import { RecurringList } from "./components/RecurringList"
 import { ExportImport } from "./components/ExportImport"
+import { AboutModal } from "./components/AboutModal"
 
 const App = () => {
   const [activeTab, setActiveTab] = useState<"reminders" | "recurring">("reminders")
   const [now, setNow] = useState(() => Date.now())
   const [reminderFormTrigger, setReminderFormTrigger] = useState(0)
   const [recurringFormTrigger, setRecurringFormTrigger] = useState(0)
+  const [showInfo, setShowInfo] = useState(false)
 
   const {
     reminders,
@@ -125,7 +127,7 @@ const App = () => {
 
   return (
     <div className="h-dvh flex flex-col bg-base-100">
-      <Header onAdd={handleAdd} />
+      <Header onAdd={handleAdd} onInfo={() => setShowInfo(true)} />
       <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
       <main className="flex-1 overflow-auto">
         {activeTab === "reminders" ? (
@@ -155,6 +157,7 @@ const App = () => {
           />
         )}
       </main>
+      <AboutModal open={showInfo} onClose={() => setShowInfo(false)} />
       <ExportImport onExport={handleExport} onImport={handleImport} />
     </div>
   )

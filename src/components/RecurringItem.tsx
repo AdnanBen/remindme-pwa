@@ -1,4 +1,6 @@
 import { memo } from "react"
+import { Pencil, Trash2 } from "lucide-react"
+
 import type { RecurringReminder } from "../types"
 
 type RecurringItemProps = {
@@ -28,7 +30,13 @@ const formatSchedule = (reminder: RecurringReminder) => {
 
 const RecurringItemComponent = ({ reminder, onToggle, onEdit, onDelete }: RecurringItemProps) => {
   return (
-    <div className={`flex items-start gap-3 p-4 rounded-xl bg-base-200 ${!reminder.enabled ? "opacity-50" : ""}`}>
+    <div
+      className={`flex items-start gap-3 p-4 rounded-xl bg-base-200 ${!reminder.enabled ? "opacity-50" : ""}`}
+      onContextMenu={(event) => {
+        event.preventDefault()
+        onEdit(reminder)
+      }}
+    >
       <input
         type="checkbox"
         className="toggle toggle-primary toggle-sm mt-0.5"
@@ -45,22 +53,14 @@ const RecurringItemComponent = ({ reminder, onToggle, onEdit, onDelete }: Recurr
         onClick={() => onEdit(reminder)}
         aria-label="Edit"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M13.586 3.586a2 2 0 012.828 2.828l-8.5 8.5a2 2 0 01-.878.512l-3.086.822a.5.5 0 01-.61-.61l.822-3.086a2 2 0 01.512-.878l8.5-8.5z" />
-        </svg>
+        <Pencil className="h-4 w-4" aria-hidden="true" />
       </button>
       <button
         className="btn btn-ghost btn-sm btn-square text-base-content/40 hover:text-error"
         onClick={() => onDelete(reminder.id)}
         aria-label="Delete"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path
-            fillRule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
+        <Trash2 className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   )
