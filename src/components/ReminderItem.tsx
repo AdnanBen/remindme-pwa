@@ -31,7 +31,13 @@ const ReminderItemComponent = ({ reminder, currentTime, onToggle, onEdit, onDele
   const isPast = new Date(reminder.dueDate) < nowDate && !reminder.completed
 
   return (
-    <div className={`flex items-start gap-3 p-4 rounded-xl bg-base-200 ${reminder.completed ? "opacity-50" : ""}`}>
+    <div
+      className={`flex items-start gap-3 p-4 rounded-xl bg-base-200 ${reminder.completed ? "opacity-50" : ""}`}
+      onContextMenu={(event) => {
+        event.preventDefault()
+        onEdit(reminder)
+      }}
+    >
       <input
         type="checkbox"
         className="checkbox checkbox-primary mt-0.5"
