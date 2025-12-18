@@ -53,16 +53,21 @@ const SortableSectionInner = <T,>({
               const { content, draggable = true } = renderItem(item)
               return (
                 <Draggable key={id} draggableId={id} index={index} isDragDisabled={!onReorder || !draggable}>
-                  {(draggableProvided, snapshot) => (
-                    <div
-                      ref={draggableProvided.innerRef}
-                      {...draggableProvided.draggableProps}
-                      {...draggableProvided.dragHandleProps}
-                      className={snapshot.isDragging ? "opacity-70" : undefined}
-                    >
-                      {content}
-                    </div>
-                  )}
+                  {(draggableProvided, snapshot) => {
+                    const cursorClass =
+                      !onReorder || !draggable ? "" : snapshot.isDragging ? "cursor-grabbing" : "cursor-grab"
+                    const className = snapshot.isDragging ? `opacity-70 ${cursorClass}` : cursorClass || undefined
+                    return (
+                      <div
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                        className={className}
+                      >
+                        {content}
+                      </div>
+                    )
+                  }}
                 </Draggable>
               )
             })}
